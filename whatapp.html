@@ -1,0 +1,306 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=yes">
+    <title>Lucky Tours · WhatsApp Booking</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #eafaf1;
+            font-family: system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', sans-serif;
+            padding: 1.5rem;
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wa-card {
+            max-width: 480px;
+            width: 100%;
+            margin: 0 auto;
+            background: white;
+            border-radius: 2rem;
+            box-shadow: 0 20px 35px -10px rgba(0, 0, 0, 0.15);
+            overflow: hidden;
+            transition: all 0.2s ease;
+        }
+
+        .wa-header {
+            background: #075e54;  /* WhatsApp dark green */
+            padding: 1.6rem 1.5rem;
+            text-align: center;
+            color: white;
+        }
+
+        .wa-header i {
+            font-size: 2.5rem;
+            background: white;
+            color: #075e54;
+            width: 60px;
+            height: 60px;
+            line-height: 60px;
+            border-radius: 50%;
+            display: inline-block;
+            margin-bottom: 12px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.2);
+        }
+
+        .wa-header h1 {
+            font-size: 1.7rem;
+            font-weight: 700;
+            letter-spacing: -0.3px;
+        }
+
+        .wa-header p {
+            font-size: 0.85rem;
+            opacity: 0.9;
+            margin-top: 6px;
+        }
+
+        .wa-form {
+            padding: 1.8rem 1.5rem 2rem;
+        }
+
+        .input-group {
+            margin-bottom: 1.2rem;
+        }
+
+        .input-group label {
+            display: block;
+            font-weight: 600;
+            font-size: 0.85rem;
+            color: #1f2f2a;
+            margin-bottom: 6px;
+            letter-spacing: -0.2px;
+        }
+
+        .input-group input,
+        .input-group select,
+        .input-group textarea {
+            width: 100%;
+            padding: 12px 14px;
+            font-size: 1rem;
+            border: 1.5px solid #e2e8f0;
+            border-radius: 20px;
+            background: #fefefe;
+            transition: 0.2s;
+            font-family: inherit;
+        }
+
+        .input-group input:focus,
+        .input-group select:focus,
+        .input-group textarea:focus {
+            outline: none;
+            border-color: #25D366;
+            box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2);
+        }
+
+        textarea {
+            resize: vertical;
+            min-height: 80px;
+        }
+
+        .btn-book {
+            background: #25D366;
+            color: white;
+            border: none;
+            width: 100%;
+            padding: 14px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            border-radius: 40px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            gap: 10px;
+            transition: 0.2s;
+            margin-top: 12px;
+            box-shadow: 0 5px 12px rgba(37, 211, 102, 0.3);
+        }
+
+        .btn-book:hover {
+            background: #128C7E;
+            transform: translateY(-2px);
+            box-shadow: 0 8px 18px rgba(37, 211, 102, 0.4);
+        }
+
+        .btn-book:active {
+            transform: translateY(1px);
+        }
+
+        .whatsapp-note {
+            text-align: center;
+            font-size: 0.75rem;
+            color: #4a5b55;
+            margin-top: 20px;
+            background: #f0f9f4;
+            padding: 8px 12px;
+            border-radius: 30px;
+            display: inline-block;
+            width: 100%;
+        }
+
+        .whatsapp-note i {
+            color: #25D366;
+            margin-right: 4px;
+        }
+
+        footer {
+            text-align: center;
+            padding: 0.8rem 1rem 1.2rem;
+            font-size: 0.7rem;
+            color: #7c8f89;
+            border-top: 1px solid #eef3f0;
+        }
+
+        @media (max-width: 480px) {
+            body {
+                padding: 0.8rem;
+            }
+            .wa-form {
+                padding: 1.2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<div class="wa-card">
+    <div class="wa-header">
+        <i>📱</i>
+        <h1>☘️ Lucky Tours</h1>
+        <p>Instant WhatsApp Booking</p>
+    </div>
+
+    <div class="wa-form">
+        <form id="bookingForm">
+            <div class="input-group">
+                <label>👤 Full name *</label>
+                <input type="text" id="fullName" placeholder="e.g. Chamara Perera" required>
+            </div>
+
+            <div class="input-group">
+                <label>📞 Your phone (with country code) *</label>
+                <input type="tel" id="phone" placeholder="+94 77 240 5094" required>
+            </div>
+
+            <div class="input-group">
+                <label>🚐 Select service *</label>
+                <select id="service" required>
+                    <option value="">-- Choose --</option>
+                    <option>Island wide tour</option>
+                    <option>Airport transfer</option>
+                    <option>Wedding hire</option>
+                    <option>City cab / day trip</option>
+                    <option>Yala / Ella / Kandy tour</option>
+                </select>
+            </div>
+
+            <div class="input-group">
+                <label>📅 Preferred date</label>
+                <input type="date" id="tripDate">
+            </div>
+
+            <div class="input-group">
+                <label>✏️ Extra details (pickup, guests, etc.)</label>
+                <textarea id="details" placeholder="e.g. Pickup from Negombo, 4 adults, need child seat..."></textarea>
+            </div>
+
+            <button type="submit" class="btn-book">
+                <i>💬</i> Book now on WhatsApp
+            </button>
+        </form>
+        <div class="whatsapp-note">
+            <i>📲</i> Clicking will open WhatsApp → message is pre-filled. Just send!
+        </div>
+    </div>
+    <footer>
+        🚕 Safe • Fast • Lucky | 24/7 support
+    </footer>
+</div>
+
+<script>
+    (function() {
+        const WA_NUMBER = "94772405094";   // 0772405094 in international format without '+'
+        // Remove any non-digit just in case: 0772405094 → 94772405094
+        // Actually user gave 0772405094 -> Sri Lanka: +94 77 240 5094 -> 94772405094
+
+        const form = document.getElementById('bookingForm');
+        
+        function formatWhatsAppMessage(name, phone, service, date, details) {
+            const currentTime = new Date().toLocaleString('en-LK', { hour12: true });
+            let msg = `*🟢 NEW BOOKING REQUEST (Lucky Tours)*%0A%0A`;
+            msg += `*👤 Name:* ${escapeForWhatsApp(name)}%0A`;
+            msg += `*📞 Customer phone:* ${escapeForWhatsApp(phone)}%0A`;
+            msg += `*🚐 Service:* ${escapeForWhatsApp(service)}%0A`;
+            if (date) msg += `*📅 Date:* ${escapeForWhatsApp(date)}%0A`;
+            if (details && details.trim() !== "") msg += `*✏️ Details:* ${escapeForWhatsApp(details)}%0A`;
+            msg += `%0A⏰ Sent from web booking: ${currentTime}%0A`;
+            msg += `_Please confirm availability._%0A✨ Lucky Tours Team`;
+            return msg;
+        }
+
+        function escapeForWhatsApp(str) {
+            if (!str) return "";
+            return str.trim().replace(/&/g, 'and').replace(/[#%]/g, '').replace(/[\n\r]/g, ' ');
+        }
+
+        function isValidPhone(p) {
+            let cleaned = p.replace(/\s+/g, '');
+            // simple check: at least 9 digits
+            return cleaned.length >= 9;
+        }
+
+        form.addEventListener('submit', function(e) {
+            e.preventDefault();
+
+            const name = document.getElementById('fullName').value.trim();
+            const phone = document.getElementById('phone').value.trim();
+            const service = document.getElementById('service').value;
+            const date = document.getElementById('tripDate').value;
+            const details = document.getElementById('details').value.trim();
+
+            if (!name) {
+                alert("Please enter your full name.");
+                return;
+            }
+            if (!phone) {
+                alert("Please enter your phone number (so we can contact you).");
+                return;
+            }
+            if (!service) {
+                alert("Please select a service.");
+                return;
+            }
+            if (!isValidPhone(phone)) {
+                alert("Please enter a valid phone number with country code (e.g. +94772405094).");
+                return;
+            }
+
+            // build full whatsapp link
+            const messageText = formatWhatsAppMessage(name, phone, service, date, details);
+            const waLink = `https://wa.me/${WA_NUMBER}?text=${messageText}`;
+            
+            // open in new tab
+            window.open(waLink, '_blank');
+            
+            // Optional: small success feedback
+            const btn = document.querySelector('.btn-book');
+            const originalText = btn.innerHTML;
+            btn.innerHTML = '<i>✅</i> Opened WhatsApp! Send message';
+            setTimeout(() => {
+                btn.innerHTML = originalText;
+            }, 2500);
+        });
+    })();
+</script>
+</body>
+</html>
